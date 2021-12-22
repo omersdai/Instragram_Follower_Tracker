@@ -11,12 +11,11 @@ import time
 # https://www.youtube.com/watch?v=Xjv1sY630Uc
 
 def main():
-    # user = input('Enter instagram username: ')
-    # pw = input('Enter instagram password:   ')
-    username = 'omersdai'
+    user_name = input('Enter instagram username: ')
     pw = input('Enter instagram password:   ')
 
-    waitDuration = 10  # seconds
+
+    wait_duration = 10  # seconds
 
     PATH = "C:\\Program Files (x86)\\ChromeDriver\\chromedriver.exe"
     driver = webdriver.Chrome(PATH)
@@ -24,29 +23,29 @@ def main():
     # An implicit wait tells WebDriver to poll the DOM for a certain amount of time when trying to find any element (
     # or elements) not immediately available. The default setting is 0 (zero). Once set, the implicit wait is set for
     # the life of the WebDriver object.
-    driver.implicitly_wait(waitDuration)  # seconds
+    driver.implicitly_wait(wait_duration)  # seconds
 
     driver.get("https://www.instagram.com/")
 
-    userNameInput = driver.find_element_by_name('username')
-    passwordInput = driver.find_element_by_name('password')
+    user_name_input = driver.find_element_by_name('username')
+    password_input = driver.find_element_by_name('password')
 
-    userNameInput.send_keys(username)
-    passwordInput.send_keys(pw, Keys.ENTER)
+    user_name_input.send_keys(user_name)
+    password_input.send_keys(pw, Keys.ENTER)
 
     driver.find_element_by_xpath('//button[contains(text(), "Not Now")]').click()  # Do you want to save info? => no
     driver.find_element_by_xpath('//button[contains(text(), "Not Now")]').click()  # Notifications => no
 
-    driver.find_element_by_link_text(username).click()  # Go to profile page
+    driver.find_element_by_link_text(user_name).click()  # Go to profile page
 
     class_name = 'isgrP'
 
-    driver.find_element_by_css_selector(f'a[href="/{username}/followers/"]').click()
+    driver.find_element_by_css_selector(f'a[href="/{user_name}/followers/"]').click()
     follower_set = get_user_set(driver, class_name)
 
     driver.back()
 
-    driver.find_element_by_css_selector(f'a[href="/{username}/following/"]').click()
+    driver.find_element_by_css_selector(f'a[href="/{user_name}/following/"]').click()
     following_set = get_user_set(driver, class_name)
 
     file = open("fans.txt", "w")
