@@ -48,7 +48,7 @@ def main():
     driver.find_element_by_css_selector(f'a[href="/{user_name}/following/"]').click()
     following_set = get_user_set(driver, class_name)
 
-    file = open("fans.txt", "w")
+    file = open("onlyfans.txt", "w")
     res = list(follower_set.difference(following_set))
     res.sort()
 
@@ -88,20 +88,18 @@ def main():
 
 
 def get_user_set(driver, class_name):
-    ul = driver.find_element_by_css_selector(f'div.{class_name} ul')
+    ul = driver.find_element_by_css_selector(f'.{class_name} ul')
     height = ul.size['height']
     prev_height = 0
 
-    scroll_down_list = ActionChains(driver).key_down(Keys.ARROW_DOWN, ul)
-    scroll_down = ActionChains(driver).key_down(Keys.ARROW_DOWN)
+    driver.execute_script(f"list = document.querySelector('.{class_name} ul');")
+
+
     check_freq = 0.1
     check_duration = 3
 
     while prev_height < height:
-        scroll_down_list.perform()
-        for i in range(100):
-            scroll_down.perform()
-
+        driver.execute_script("list.scrollIntoView(false);")
         for i in range(int(check_duration / check_freq)):
             if height != ul.size['height']:
                 break
