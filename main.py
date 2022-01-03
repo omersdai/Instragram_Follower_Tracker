@@ -14,12 +14,9 @@ def main():
     user_name = input('Enter instagram username: ')
     pw = input('Enter instagram password:   ')
 
-
     wait_duration = 10  # seconds
-
     PATH = "C:\\Program Files (x86)\\ChromeDriver\\chromedriver.exe"
     driver = webdriver.Chrome(PATH)
-
     # An implicit wait tells WebDriver to poll the DOM for a certain amount of time when trying to find any element (
     # or elements) not immediately available. The default setting is 0 (zero). Once set, the implicit wait is set for
     # the life of the WebDriver object.
@@ -86,14 +83,12 @@ def main():
     # size = e.size
     # w, h = size['width'], size['height']
 
-
 def get_user_set(driver, class_name):
     ul = driver.find_element_by_css_selector(f'.{class_name} ul')
     height = ul.size['height']
     prev_height = 0
 
     driver.execute_script(f"list = document.querySelector('.{class_name} ul');")
-
 
     check_freq = 0.1
     check_duration = 3
@@ -115,3 +110,4 @@ def get_user_set(driver, class_name):
 
 if __name__ == '__main__':
     main()
+    
